@@ -1,38 +1,41 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title>Simple Chatbot</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./index.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="container">
-      <h1>Simple Chatbot with WebLLM</h1>
+        <h1>Simple Chatbot with WebLLM</h1>
 
-      <section class="section">
-        <p class="section-title">Initialize and Download LLM Model</p>
-        <div class="download-container">
-          <select id="model-selection" aria-label="Select Model"></select>
-          <button id="download">Download</button>
-        </div>
-        <p id="download-status" class="hidden"></p>
-      </section>
+        <section class="section">
+            <p class="section-title">Initialize and Download LLM Model</p>
+            <div class="download-container">
+                <select id="model-selection" aria-label="Select Model"></select>
+                <button id="download">Download</button>
+            </div>
+            <p id="download-status" class="hidden"></p>
+        </section>
 
-      <section class="section">
-        <p class="section-title">Chat Session Window</p>
-        <div class="chat-container">
-          <div id="chat-box" class="chat-box"></div>
-          <div id="chat-stats" class="chat-stats hidden"></div>
-          <div class="chat-input-container">
-            <input type="text" id="user-input" placeholder="Type a message..." aria-label="User message input"/>
-            <button id="send" disabled>Send</button>
-          </div>
-        </div>
-      </section>
+        <section class="section">
+            <p class="section-title">Chat Session Window</p>
+            <div class="chat-container">
+                <div id="chat-box" class="chat-box"></div>
+                <div id="chat-stats" class="chat-stats hidden"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="user-input" placeholder="Type a message..."
+                        aria-label="User message input" />
+                    <button id="send" disabled>Send</button>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="./index.js" type="module"></script>
-  </body>
+</body>
+
 </html>
