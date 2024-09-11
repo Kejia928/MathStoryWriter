@@ -8,21 +8,29 @@
   </head>
 
   <body>
-    <p>Step 1: Initialize WebLLM and Download Model</p>
-    <div class="download-container">
-      <select id="model-selection"></select>
-      <button id="download">Download</button>
-    </div>
-    <p id="download-status" class="hidden"></p>
+    <div class="container">
+      <h1>Simple Chatbot with WebLLM</h1>
 
-    <p>Step 2: Chat</p>
-    <div class="chat-container">
-      <div id="chat-box" class="chat-box"></div>
-      <div id="chat-stats" class="chat-stats hidden"></div>
-      <div class="chat-input-container">
-        <input type="text" id="user-input" placeholder="Type a message..." />
-        <button id="send" disabled>Send</button>
-      </div>
+      <section class="section">
+        <p class="section-title">Initialize and Download LLM Model</p>
+        <div class="download-container">
+          <select id="model-selection" aria-label="Select Model"></select>
+          <button id="download">Download</button>
+        </div>
+        <p id="download-status" class="hidden"></p>
+      </section>
+
+      <section class="section">
+        <p class="section-title">Chat Session Window</p>
+        <div class="chat-container">
+          <div id="chat-box" class="chat-box"></div>
+          <div id="chat-stats" class="chat-stats hidden"></div>
+          <div class="chat-input-container">
+            <input type="text" id="user-input" placeholder="Type a message..." aria-label="User message input"/>
+            <button id="send" disabled>Send</button>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script src="./index.js" type="module"></script>
