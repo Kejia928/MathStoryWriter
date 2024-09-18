@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Simple Image Generator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="./dist/tvmjs_runtime.wasi.js"></script>
+  <script src="./dist/tvmjs.bundle.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      margin: 20px;
+    }
+
+    h1, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    #progress {
+      margin-top: 15px;
+    }
+
+    #canvas {
+      border: 1px solid #ced4da;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    #log {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1 id="web-stable-diffusion">Simple Image Generator with WebGPU</h1>
+
+    <script>
+      var tvmjsGlobalEnv = tvmjsGlobalEnv || {};
+    </script>
+
+    <script type="module">
+      import init, { TokenizerWasm } from "./dist/tokenizers-wasm/tokenizers_wasm.js";
+
+      var initialized = false;
+      async function getTokenizer(name) {
+        if (!initialized) {
+          await init();
+        }
+        const jsonText = await (await fetch("https://huggingface.co/" + name + "/raw/main/tokenizer.json")).text();
+        return new TokenizerWasm(jsonText);
+      }
+
+      tvmjsGlobalEnv.getTokenizer = getTokenizer;
+    </script>
+
+    <script src="dist/stable_diffusion.js"></script>
+
+    <!-- Input form -->
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <label for="inputPrompt">Input prompt:</label>
+          <input name="inputPrompt" id="inputPrompt" class="form-control" type="text"
+            value="A photo of an astronaut riding a horse on mars" />
+        </div>
+
+        <div class="form-group">
+          <label for="negativePrompt">Negative prompt (optional):</label>
+          <input name="negativePrompt" id="negativePrompt" class="form-control" type="text" value="" />
+        </div>
+
+        <div class="form-group">
+          <label for="schedulerId">Select scheduler:</label>
+          <select name="scheduler" id="schedulerId" class="form-control">
+            <option value="0">Multi-step DPM Solver (20 steps)</option>
+            <option value="1">PNDM (50 steps)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vaeCycle">Render intermediate steps (may slow down execution):</label>
+          <select name="vae-cycle" id="vaeCycle" class="form-control">
+            <option value="-1">No</option>
+            <option value="2">Run VAE every two UNet steps after step 10</option>
+          </select>
+        </div>
+
+        <div id="progress">
+          <label id="gpu-tracker-label"></label><br />
+          <label id="progress-tracker-label"></label><br />
+          <progress id="progress-tracker-progress" class="progress" max="100" value="100"></progress>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="tvmjsGlobalEnv.asyncOnGenerate()">Generate</button>
+
+        <div id="log"></div>
+      </div>
+    </div>
+
+    <!-- Canvas and Log Section -->
+    <div class="row mt-5">
+      <div class="col-md-6 offset-md-3">
+        <canvas id="canvas" width="512" height="512"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/javascript" src="/assets/js/srcset-polyfill.js"></script>
+</body>
+
+</html>
