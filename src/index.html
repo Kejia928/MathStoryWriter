@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Story Generator</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Math Story Generator</h1>
+        
+        <button id="init-button" onclick="">Load Model</button>
+        <p id="download-status" class="hidden"></p>
+
+        <!-- Input box for the math question -->
+        <div class="input-container">
+            <label for="math-input">Enter a math problem:</label>
+            <input type="text" id="math-input" placeholder="Type a math problem ...">
+        </div>
+
+        <!-- Input box for the story scenerio -->
+        <div class="input-container">
+            <label for="scenerio-input">Enter the story scenerio:</label>
+            <input type="text" id="scenerio-input" placeholder="Type a scenerio, e.g. kitchen ...">
+        </div>
+
+        <!-- Input box for the characters -->
+        <div class="input-container">
+            <label for="characters-input">Enter story characters:</label>
+            <input type="text" id="characters-input" placeholder="Type some character, e.g. fox, bear ...">
+        </div>
+
+        <!-- Generate button -->
+        <button id="generate-button" disabled>Generate</button>
+        <!-- New display box for the generated content -->
+        <div id="generated-content-box" class="generated-content-box">
+            <div id="image-display">
+                <canvas id="canvas" width="512" height="512"></canvas>
+            </div>
+            <div id="story-display">
+                <canvas id="canvas" width="1024" height="150"></canvas>
+            </div>
+        </div>
+
+        <!-- Pagination controls -->
+        <div id="output-container" class="output-container">
+            <div class="pagination-controls">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="page-number">Page 0/0</span>
+                <button id="next-page" disabled>Next</button>
+            </div>
+
+            <!-- Content for generated stories and images -->
+            <div id="content-box" class="content-box">
+                <!-- Dynamic content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="./dist/index.js" type="module"></script>
+</body>
+
+</html>
