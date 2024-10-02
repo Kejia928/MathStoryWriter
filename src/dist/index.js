@@ -138,24 +138,21 @@ function loadImage(canvas, storyIndex) {
         console.log("No image found at index " + storyIndex);
         return;
     }
+    const ctx = document.getElementById('image-display').querySelector("canvas").getContext('2d');
+    if (!ctx) {
+        console.log("Canvas context not found");
+        return;
+    }
     var img = new Image();
     img.src = storyImages[storyIndex];
-    img.onload = function () {
-        if (!canvas.getContext('2d')) {
-            console.error("Failed to get 2D context");
-            return;
-        }
-        console.log("Image loaded from index " + storyIndex);
-        canvas.getContext('2d').drawImage(img, 0, 0);
-    };
+    ctx.drawImage(img, 0, 0);
+    console.log("Image loaded from index " + storyIndex);
 }
 
 // Update UI with Story Content
 function updateUI(index) {
-    document.getElementById("prev-page").disabled = true;
-    document.getElementById("next-page").disabled = true;
     storyIndex += index;
-    document.getElementById("page-number").textContent = "Page " + (storyIndex+1) + " / " + storyContent.length;
+    document.getElementById("page-number").textContent = "Page " + (storyIndex + 1) + " / " + storyContent.length;
     if (storyIndex < 0) {
         storyIndex = 0;
     } else if (storyIndex >= storyContent.length) {
